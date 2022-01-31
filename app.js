@@ -97,6 +97,13 @@ for(let i = 0; i < winningMoves.length; i++)
   cells[winningMoves[i]].style = "color: green;"
 }
 
-  //Add an h2 element to indicate which player has won?
-  //Remove the event handlers for every cell, effectively locking the board?
+  //TODO: Add an h2 element to indicate which player has won
+
+  //Remove the event handlers for every cell, effectively locking the board
+  {
+    for(let i = 0; i < cells.length; i++)
+    {
+      cells[i].removeEventListener("click", CellClicked);
+    }
+  }
 }
