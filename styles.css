@@ -1,6 +1,7 @@
 #board{
     text-align: center;
     top: 3em;
+    height: 370px;
 }
 
 .row > div{
@@ -30,4 +31,8 @@
 
 .right{
     border-left: 1px black solid;
+}
+
+.victory-message > h2{
+    text-align: center;
 }

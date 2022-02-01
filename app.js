@@ -2,6 +2,7 @@
 var cells = document.querySelectorAll(".row > div");
 //Boolean value to determine whose turn it is. True value indicates that it's X's turn, false for O's
 var xToMove = true;
+var numMoves = 0;
 
 //Connect event listners to each of the cell divs
 for (let i = 0; i < cells.length; i++) {
@@ -31,6 +32,7 @@ function PlaceSymbol(cell) {
     cell.textContent = symbol;
     cell.style = styleString;
     xToMove = !xToMove;
+    numMoves++;
     checkVictory(symbol);
   }
 }
@@ -88,22 +90,31 @@ function checkVictory(xOrO) {
     console.log(symbol + " has won!!!");
     victoryFinalization(symbol, winningMoves);
   }
+  //Check if the maximum number of moves has been reached to determine if the game is a draw
+  else if (numMoves == 9) {
+    drawFinalization();
+  }
 }
 
 function victoryFinalization(winningPlayer, winningMoves) {
   //Change the color of the three symbols (X's or O's) in the winning move to green
-for(let i = 0; i < winningMoves.length; i++)
-{
-  cells[winningMoves[i]].style = "color: green;"
-}
+  for (let i = 0; i < winningMoves.length; i++) {
+    cells[winningMoves[i]].style = "color: green;";
+  }
 
-  //TODO: Add an h2 element to indicate which player has won
+  //Add text to the h2 element below the board to indicate which player has won
+  let winMessage = document.querySelector(".victory-message > h2");
+  winMessage.textContent = winningPlayer + " has won!";
 
   //Remove the event handlers for every cell, effectively locking the board
   {
-    for(let i = 0; i < cells.length; i++)
-    {
+    for (let i = 0; i < cells.length; i++) {
       cells[i].removeEventListener("click", CellClicked);
     }
   }
+}
+
+function drawFinalization() {
+  let winMessage = document.querySelector(".victory-message > h2");
+  winMessage.textContent = "It's a draw!";
 }
